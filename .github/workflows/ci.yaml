@@ -67,6 +67,9 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
+      - name: Build with maven
+        run: mvn clean package -DskipTests
+
       - name: docker build
         uses: docker/setup-qemu-action@v3
 
