@@ -67,9 +67,6 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Build with maven
-        run: mvn clean package -DskipTests
-
       - name: docker build
         uses: docker/setup-qemu-action@v3
 
@@ -85,5 +82,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
+          context: .
+          file: Dockerfile
           push: true
-          tags: rennan14/ci-cd-githuba-actions-api:lastest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ci-cd-githuba-actions-api:lastest
